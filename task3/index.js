@@ -7,6 +7,7 @@ yargs.command(
         builder:{
             name:{
                 type:String,
+                required:true, 
                 
             },
             accNum:{
@@ -23,22 +24,57 @@ yargs.command(
                 type:Number,
                 default:1000,
             },
-            operation:{
-                default:[]
-            },
+           
             handler:function(argv){
             let customerdata={
                 name:argv.name,
-                accNum:argv.accNum,
+                accNum:Date.now(),
                 intinalBalance:argv.intinalBalance,
                remainingBalance:argv.remainingBalance,
                operation:argv.operation,
-               id:Date.now()
+               
             } 
             user.addcustomer(userData)
         }
         }
     })
+    yargs.command({
+        command:"addOp",
+        describe:"used for add operation",
+        builder:{
+            id:{
+                type:Number,
+                required:true,
+
+            },
+            op:{
+                type:String,
+                required:true,
+            },
+            number:{
+                type:Number,
+                required:true,
+            }
+        },
+        handler:function(argv){
+            user.addOp(argv.id,argv.op,argv.number)
+        }
+
+    })
+    yargs.command({
+        command:"showOp",
+        describe:"used for Show Oprations",
+        builder:{
+            id:{
+                type:Number,
+                required:true
+            }
+        },
+        handler:function(argv){
+            user.showOp(argv.id)
+        }
+    })
+    
 yargs.argv
 
 
